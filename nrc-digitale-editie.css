@@ -1,0 +1,53 @@
+﻿/*
+nrc-digitale-editie.css
+This stylesheet tries to make the new NRC website a little more usable and fluid.
+It also makes the links to the different sections on the left a little smaller so more (or all) can fit on the screen at once.
+I recommend using it in combination with a stylesheet that has light text on a dark background.
+The default black on white is kind of horrible.
+
+Changelog
+1.01 2011-01-30 Some refinements.
+1.0 2011-01-29 First release.
+*/
+
+/* This here sets the background color for the whole thing. Change it to whatever you like. */
+body, #PageContainer {background: #eee !important}
+
+/* Good lord, *some* flexibility please? */
+#PageContainer {width:100% !important}
+#MainContent {width:70% !important}
+
+/* Removing the large header */
+#LogoHolder {display:none} 
+/* Removing the round space filler around the newspaper display. */
+#InnerPage {padding: 0 !important}
+#Page {width: auto !important}
+
+/*
+For some unknown reason this one's 575px wide in the default layout even though what's within is only 400px.
+Bravo, lots of wasted space on the right. Can't be bothered to make it more fluid atm.
+*/
+#Content .preview-panel-right {width:425px !important}
+
+/*
+Why so much specificity!? Trying to make adjustments like this stylesheet harder or something? <_<
+But most of all this just makes processing the CSS take longer. Thanks for slowing my browser down.
+This adjustment makes all of the newspaper sections fit on my screen without having to scroll down.
+*/
+#Sections .main-sections li a.section-link span {font-size:85% !important;padding:5px!important}
+
+/*
+Just because it's a newspaper website doesn't mean I want uber-narrow columns; I don't want stupid paper limitations on my screen.
+A stupid faux Javascript link for printing is the *opposite* of an acceptable reason for shrinking my content.
+*/
+#MainContent .column-left {width:100% !important}
+
+
+
+/* Removes a stupid print link that isn't even dynamically inserted through the DOM.
+Lovely, it's also there when Javascript is disabled; it also pollutes my articles when I disable Javascript.
+Get bent. Kill, kill, kill. Stupid waste of space. */
+#PrintButton, #PrintLink {display:none !important}
+
+/* I like to see the entire picture */
+#Content, #ImageHolder {overflow: inherit !important;}
