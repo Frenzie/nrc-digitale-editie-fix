@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name		NRC Digitale Editie Fix
-// @author 		Frenzie
+// @author	Frenzie
 // @version		2.1
 // @namespace		http://extendopera.org/userjs/content/nrc-digitale-editie-fix
 // @description		Suppresses the default annoying behavior of digital NRC. Instead of opening articles in a lightbox only accessible through left click, this script replaces this ludicrousness with regular links so you get all the power that comes with regular links, such as opening them in background, creating linked windows, etcetera.
@@ -30,7 +30,7 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
 /******************************/
 /**** End editable section ****/
 /******************************/
-	}
+	};
 
 	/*
 	 * Copy settings to variables for easier use later.
@@ -42,17 +42,21 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
 
 
 	window.addEventListener('load', function () {
+		// Selectors as used in one-page-view.js
 		// var a = jQuery("#PageHolder div");
 		var article_divs = Array.prototype.slice.call(document.querySelectorAll('#PageHolder div'));
 		article_divs.forEach(function(div) {
 			div.innerHTML = '<a href="'+getArticleHref(div)+'" style="display:block;width:100%;height:100%"></a>';
-			killEventListeners(div);
+			//killEventListeners(div);
+			jQuery(div).off('click');
 		});
+		
 		// NrcOnePageView.Articles.articleHyperlinks = jQuery("#Articles a");
 		var article_links = Array.prototype.slice.call(document.querySelectorAll('#Articles a'));
 		article_links.forEach(function(link) {
 			link.href = getArticleHref(link);
-			killEventListeners(link);
+			//killEventListeners(link);
+			jQuery(link).off('click');
 		});
 	}, false);
 
@@ -61,7 +65,7 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
 		var old_element = el;
 		var new_element = old_element.cloneNode(true);
 		old_element.parentNode.replaceChild(new_element, old_element);
-	}
+	};
 	
 	// Mostly just taken from the NRC website. The crux of the problem is that this is how links are added, rather than server-side.
 	// Read my lips: PROGRESSIVE ENHANCEMENT. Build a *working* website, then add some lousy Javascript special effects if you must.
@@ -80,7 +84,7 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
 			}
 		}
 		return filename;
-	}
+	};
 
 	// Add some styles that are specific to this script.
 	var addStyle = function() {
@@ -92,7 +96,7 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
 			.column-right {padding-left: 1em !important}\
 		';
 		document.head.appendChild(style);
-	}
+	};
 	document.addEventListener('DOMContentLoaded', addStyle, false);
 	
 	// Switches the left and right column in the DOM for easier styling.
