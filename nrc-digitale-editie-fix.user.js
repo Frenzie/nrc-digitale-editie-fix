@@ -20,7 +20,7 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) ) {
 	var jQuery = window.jQuery;
 	
 	// remove this later; temporary workaround
-	if (typeof opera !== 'undefined') {
+	if (typeof opera === 'undefined') {
 		opera = {};
 	}
 	
