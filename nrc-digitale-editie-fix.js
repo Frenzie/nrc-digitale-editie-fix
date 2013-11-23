@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name		NRC Digitale Editie Fix
 // @author 		Frenzie
-// @version		2.0
+// @version		2.1
 // @namespace		http://extendopera.org/userjs/content/nrc-digitale-editie-fix
 // @description		Suppresses the default annoying behavior of digital NRC. Instead of opening articles in a lightbox only accessible through left click, this script replaces this ludicrousness with regular links so you get all the power that comes with regular links, such as opening them in background, creating linked windows, etcetera.
 // @include		http://digitaleeditie.nrc.nl/*
 // ==/UserScript==
 // Changelog
+// 2.1 November xx, 2013. NRC site weer gewijzigd, maar enkel in scripts.
 // 2.0 January 30, 2011. Updated for new NRC site.
 // 1.01 July 5, 2010. Added suppression of the opening of search results in a new window.
 // 1.0 July 3, 2010. Initial release.
@@ -56,7 +57,6 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
 	}, false);
 
 	// overkill; we willen wel kunnen hoveren
-	
 	killEventListeners = function (el) {
 		var old_element = el;
 		var new_element = old_element.cloneNode(true);
