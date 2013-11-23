@@ -12,9 +12,18 @@
 // 1.01 July 5, 2010. Added suppression of the opening of search results in a new window.
 // 1.0 July 3, 2010. Initial release.
 
-if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
-{
-
+if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) ) {
+	// GM compatibility
+	if (typeof unsafeWindow !== 'undefined') {
+		window = unsafeWindow;
+	}
+	var jQuery = window.jQuery;
+	
+	// remove this later; temporary workaround
+	if (typeof opera !== 'undefined') {
+		opera = {};
+	}
+	
 	// Blatant copy of the MyOpera Enhancements settings system.
 	var defaultScriptSettings = {
 
@@ -39,12 +48,6 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
 	var userSets = (typeof opera.UJSFixNRCSettings !== 'undefined') ? opera.UJSFixNRCSettings : defaultScriptSettings;
 
 	var textDefault = (typeof userSets.textDefault !== 'undefined') ? userSets.textDefault : defaultScriptSettings.textDefault;
-	
-	// GM compatibility
-	if (typeof unsafeWindow !== 'undefined') {
-		window = unsafeWindow;
-	}
-	var jQuery = window.jQuery;
 
 
 	window.addEventListener('load', function () {
