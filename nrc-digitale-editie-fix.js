@@ -40,28 +40,29 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
 	var textDefault          = !(userSets.textDefault          === undefined)? userSets.textDefault          :defaultScriptSettings.textDefault;
 
 
-	window.opera.addEventListener('BeforeScript', function (e)
-	{
-		// jQuery makes things simpler my ass.
-		if (e.element.src.indexOf('one-page-view.js') != -1)
-			{
-				e.element.text = e.element.text.replace(
-					'articleDivs.click(function(){ NrcOnePageView.Articles.showArticle(this);return false; })',
-					'articleDivs.each(function(){jQuery(this).html(\'<a href="\'+getArticleHref(this)+\'" style="display:block;width:100%;height:100%"></a>\')})'
-				);
-				/*
-				e.element.text = e.element.text.replace(
-					'areas.click(function(){ NrcOnePageView.Articles.showArticle(this);return false; });',
-					''
-				);
-				*/
-				e.element.text = e.element.text.replace(
-					'NrcOnePageView.Articles.articleHyperlinks.click(function(){ NrcOnePageView.Articles.showArticle(this);return false; })',
-					'NrcOnePageView.Articles.articleHyperlinks.each(function(){jQuery(this).attr(\'href\',getArticleHref(this))})'
-				);
-			}
+	window.addEventListener('load', function () {
+		// var a = jQuery("#PageHolder div");
+		var article_divs = Array.prototype.slice.call(document.querySelectorAll('#PageHolder div'));
+		article_divs.forEach(function(div) {
+			div.innerHTML = '<a href="'+getArticleHref(div)+'" style="display:block;width:100%;height:100%"></a>';
+			killEventListeners(div);
+		});
+		// NrcOnePageView.Articles.articleHyperlinks = jQuery("#Articles a");
+		var article_links = Array.prototype.slice.call(document.querySelectorAll('#Articles a'));
+		article_links.forEach(function(link) {
+			link.href = getArticleHref(link);
+			killEventListeners(link);
+		});
 	}, false);
 
+	// overkill; we willen wel kunnen hoveren
+	
+	killEventListeners = function (el) {
+		var old_element = el;
+		var new_element = old_element.cloneNode(true);
+		old_element.parentNode.replaceChild(new_element, old_element);
+	}
+	
 	// Mostly just taken from the NRC website. The crux of the problem is that this is how links are added, rather than server-side.
 	// Read my lips: PROGRESSIVE ENHANCEMENT. Build a *working* website, then add some lousy Javascript special effects if you must.
 	// The whole idea behind this freaking UserJS is to rewrite the website into what it should've been like before any JS was added.
@@ -90,7 +91,7 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
 			.column-left {float:none !important}\
 			.column-right {padding-left: 1em !important}\
 		';
-		document.body.previousSibling.appendChild(style);
+		document.head.appendChild(style);
 	}
 	document.addEventListener('DOMContentLoaded', addStyle, false);
 	
