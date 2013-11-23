@@ -7,7 +7,7 @@
 // @include		http://digitaleeditie.nrc.nl/*
 // ==/UserScript==
 // Changelog
-// 2.1 November xx, 2013. NRC site weer gewijzigd, maar enkel in scripts.
+// 2.1 November 23, 2013. NRC site weer gewijzigd, maar enkel in scripts.
 // 2.0 January 30, 2011. Updated for new NRC site.
 // 1.01 July 5, 2010. Added suppression of the opening of search results in a new window.
 // 1.0 July 3, 2010. Initial release.
@@ -36,9 +36,15 @@ if ( (location.hostname.indexOf('digitaleeditie.nrc.nl') != -1) )
 	 * Copy settings to variables for easier use later.
 	 * Check window.UJSMyOperaCommunityFESettings for backwards compatibility.
 	 */
-	var userSets = opera.UJSFixNRCSettings||defaultScriptSettings;
+	var userSets = (typeof opera.UJSFixNRCSettings !== 'undefined') ? opera.UJSFixNRCSettings : defaultScriptSettings;
 
-	var textDefault          = !(userSets.textDefault          === undefined)? userSets.textDefault          :defaultScriptSettings.textDefault;
+	var textDefault = (typeof userSets.textDefault !== 'undefined') ? userSets.textDefault : defaultScriptSettings.textDefault;
+	
+	// GM compatibility
+	if (typeof unsafeWindow !== 'undefined') {
+		window = unsafeWindow;
+	}
+	var jQuery = window.jQuery;
 
 
 	window.addEventListener('load', function () {
