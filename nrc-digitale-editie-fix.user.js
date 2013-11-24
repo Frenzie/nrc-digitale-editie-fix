@@ -7,7 +7,7 @@
 // @include		http://digitaleeditie.nrc.nl/*
 // ==/UserScript==
 // Changelog
-// 2.1 November 23, 2013. NRC site weer gewijzigd, maar enkel in scripts.
+// 2.1 November 23, 2013. NRC site weer gewijzigd, maar enkel in scripts. Opera-afhankelijkheid verwijderd. Het script werkt nu helaas later, maar de belangrijkste functionaliteit werkt nu ook in GreaseMonkey en compatibele omgevingen. Ontwikkeling kan worden gevolgd op Github.
 // 2.0 January 30, 2011. Updated for new NRC site.
 // 1.01 July 5, 2010. Added suppression of the opening of search results in a new window.
 // 1.0 July 3, 2010. Initial release.
